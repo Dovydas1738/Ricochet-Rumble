@@ -6,5 +6,13 @@ public class Player : Unit
 {
     [SerializeField] int damage = 3;
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Unit unit = collision.gameObject.GetComponent<Unit>();
 
+        if (unit != null && unit != this)
+        {
+            unit.TakeDamage(damage);
+        }
+    }
 }

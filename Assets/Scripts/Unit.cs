@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] protected int health = 10;
+    [SerializeField] private int health = 10;
 
     // TODO add a death VFX and SFX fields to play on death
+
+    public virtual void TakeDamage(int amount)
+    {
+        health -= amount;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
 
     protected virtual void Die()
     {
