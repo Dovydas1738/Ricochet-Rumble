@@ -41,15 +41,15 @@ public class PlayerController : MonoBehaviour
     {
         mousePosition = GetCenteredMousePosition();
 
-        if (isMouseOnPlayer && Input.GetMouseButtonDown(0))
+        if (isMouseOnPlayer && Input.GetMouseButtonDown(0) && player.IsAbleToAct)
         {
             GetDragStartPosition();
 
             isMouseClickedOnPlayer = true;
         }
 
-        // Shoot on mouse release.
-        if (Input.GetMouseButtonUp(0) && isMouseClickedOnPlayer)
+        // Shoot and end turn on mouse release.
+        if (Input.GetMouseButtonUp(0) && isMouseClickedOnPlayer && player.IsAbleToAct)
         {
             isMouseClickedOnPlayer = false;
 
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Rotate the character's forward position while dragging to allow aiming and set force for the shot based on drag distance.
-        if (isMouseClickedOnPlayer)
+        if (isMouseClickedOnPlayer && player.IsAbleToAct)
         {
             player.transform.forward = new Vector3(-mousePosition.x, 0f, -mousePosition.y);
 
@@ -67,6 +67,13 @@ public class PlayerController : MonoBehaviour
             shotForce = Mathf.Lerp(minForce, MaxForce, normalizedDrag);
 
             Debug.Log(shotForce);
+        }
+
+        // When player stops moving after the shot, end turn.
+        if (player.IsShot && rb.IsSleeping())
+        {
+            player.IsShot = false;
+            player.turnManager.EndTurn();
         }
     }
 
