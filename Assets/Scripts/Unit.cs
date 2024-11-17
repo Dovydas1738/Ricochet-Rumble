@@ -6,13 +6,14 @@ using DG.Tweening;
 
 public class Unit : MonoBehaviour
 {
-    [SerializeField] private int health = 10;
-    [HideInInspector] public bool IsAbleToAct = false;
-    [HideInInspector] public bool IsShot = false;
-
     [HideInInspector] public TurnManager turnManager;
     CinemachineVirtualCamera virtualCamera;
     Transform cameraTransform;
+
+    [SerializeField] private int health = 10;
+    [HideInInspector] public bool IsShot = false;
+
+    private bool isFollowedByCamera = false;
 
     protected bool _turnToPlay = false;
     [HideInInspector] public bool TurnToPlay
@@ -33,6 +34,7 @@ public class Unit : MonoBehaviour
                 Vector3 positionToMove = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z);
 
                 float distance = Vector3.Distance(cameraTransform.transform.position, positionToMove);
+
                 // Dynamic transition speed, so that it's shorter if the camera doesn't move far.
                 float transitionSpeed = Mathf.Clamp(distance / 5f, 0.1f, 2f);
 
@@ -40,10 +42,40 @@ public class Unit : MonoBehaviour
 
                 StartCoroutine(EnableActionAfterTransition(transitionSpeed));
             }
+            else
+            {
+                isFollowedByCamera = false;
+            }
+        }
+    }
+
+    private bool _isAbleToAct = false;
+    [HideInInspector] public bool IsAbleToAct
+    {
+        get
+        {
+            return _isAbleToAct;
+        }
+        set
+        {
+            _isAbleToAct = value;
+
+            if (value)
+            {
+                isFollowedByCamera = true;
+            }
         }
     }
 
     // TODO add a death VFX and SFX fields to play on death
+
+    private void LateUpdate()
+    {
+        if (isFollowedByCamera)
+        {
+            EnableCameraFollow();
+        }
+    }
 
     public virtual void TakeDamage(int amount)
     {
@@ -74,6 +106,11 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(transitionSpeed);
 
         IsAbleToAct = true;
+    }
+
+    private void EnableCameraFollow()
+    {
+        virtualCamera.transform.position = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z);
     }
 
     private void GetComponents()

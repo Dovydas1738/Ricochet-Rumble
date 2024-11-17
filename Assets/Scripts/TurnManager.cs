@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    [Header("List of units in the level, PLAYER goes first")]
+    [Header("List of units in the level in turn order:")]
     [SerializeField] private List<Unit> units = new List<Unit>();
 
     private int index = 0;
