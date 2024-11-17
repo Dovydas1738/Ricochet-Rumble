@@ -445,10 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e80356ca14aecd740afcf68fd7687111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  IsAbleToAct: 0
-  IsShot: 0
   turnManager: {fileID: 0}
+  health: 10
+  IsShot: 0
   damage: 3
 --- !u!114 &212745780
 MonoBehaviour:
@@ -1061,8 +1060,8 @@ Rigidbody:
   m_GameObject: {fileID: 1227570723}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 1.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1086,7 +1085,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1227570723}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: bb0900e0261b0f0408e346f9cbb60727, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1128,10 +1127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1da2efe67ab4840aa9ab6e18b8d615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
-  IsAbleToAct: 0
-  IsShot: 0
   turnManager: {fileID: 0}
+  health: 10
+  IsShot: 0
 --- !u!1 &1308724294
 GameObject:
   m_ObjectHideFlags: 0

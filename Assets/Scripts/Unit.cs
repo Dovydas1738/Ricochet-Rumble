@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
     Transform cameraTransform;
 
     [SerializeField] private int health = 10;
+
     [HideInInspector] public bool IsShot = false;
 
     private bool isFollowedByCamera = false;
