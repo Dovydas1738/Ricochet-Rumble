@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3023777272166704649}
   - component: {fileID: 2064889473627910748}
   m_Layer: 0
-  m_Name: Barrel
+  m_Name: LootBox
   m_TagString: Barrel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

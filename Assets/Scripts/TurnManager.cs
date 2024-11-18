@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    [Header("List of units in the level in turn order:")]
-    [SerializeField] private List<Unit> units = new List<Unit>();
+    [HideInInspector] public List<Unit> units = new List<Unit>();
+    private GameObject player;
+    private SpawnManager spawnManager;
 
     private int index = 0;
+
+    // Player always goes first.
+    private void Awake()
+    {
+        spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+
+        player = GameObject.Find("Player");
+        units.Add(player.GetComponent<Unit>());
+    }
 
     private void Start()
     {
@@ -19,6 +29,7 @@ public class TurnManager : MonoBehaviour
         units[index].TurnToPlay = true;
     }
 
+    // Always spawn a new enemy at the end of the round.
     public void EndTurn()
     {
         units[index].TurnToPlay = false;
@@ -26,6 +37,8 @@ public class TurnManager : MonoBehaviour
         if (index == units.Count - 1)
         {
             index = 0;
+            Unit newEnemy = spawnManager.SpawnEnemy().GetComponent<Unit>();
+            units.Add(newEnemy);
         }
         else
         {

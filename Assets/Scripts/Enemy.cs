@@ -37,4 +37,11 @@ public class Enemy : Unit
     {
         base.Shoot(rb, force, direction);
     }
+
+    protected override void Die()
+    {
+        turnManager.units.Remove(this);
+        Destroy(gameObject);
+    }
+
 }

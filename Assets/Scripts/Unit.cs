@@ -74,7 +74,7 @@ public class Unit : MonoBehaviour
     {
         if (isFollowedByCamera)
         {
-            EnableCameraFollow();
+            CameraFollow();
         }
     }
 
@@ -109,7 +109,7 @@ public class Unit : MonoBehaviour
         IsAbleToAct = true;
     }
 
-    private void EnableCameraFollow()
+    private void CameraFollow()
     {
         virtualCamera.transform.position = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z);
     }
