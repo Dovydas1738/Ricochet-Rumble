@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    [SerializeField] private float shotForce = 100;
+
     Transform playerTransform;
     Rigidbody rb;
 
@@ -19,7 +21,7 @@ public class Enemy : Unit
 
         if (IsAbleToAct)
         {
-            Shoot(rb, 10f, directionToShoot);
+            Shoot(rb, shotForce, directionToShoot);
         }
 
         // End turn when enemy stops moving.
