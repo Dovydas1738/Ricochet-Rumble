@@ -4717,7 +4717,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnManager: {fileID: 0}
   health: 10
-  cameraZOffset: -5
   IsShot: 0
   damage: 3
 --- !u!114 &212745780
@@ -20059,7 +20058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalRotation: {x: 0.510813, y: 0, z: 0, w: 0.85969186}
   m_LocalPosition: {x: 0, y: 14, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27150,6 +27149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1308724296}
   - component: {fileID: 1308724295}
+  - component: {fileID: 1308724297}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -27204,14 +27204,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1308724294}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalRotation: {x: 0.510813, y: 0, z: 0, w: 0.85969186}
   m_LocalPosition: {x: 0, y: 14, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1725113691}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 61.436, y: 0, z: 0}
+--- !u!114 &1308724297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308724294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d4c98cc889dbb842ba8820ed6c3b9c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraZOffset: -5
+  rotationSpeed: 1
+  TransitionSpeed: 0
 --- !u!1 &1313152136
 GameObject:
   m_ObjectHideFlags: 0
@@ -35737,8 +35752,8 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
+  m_HorizontalDamping: 3
+  m_VerticalDamping: 8.06
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0

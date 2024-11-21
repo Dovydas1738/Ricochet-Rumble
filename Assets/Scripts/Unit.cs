@@ -7,11 +7,9 @@ using DG.Tweening;
 public class Unit : MonoBehaviour
 {
     [HideInInspector] public TurnManager turnManager;
-    CinemachineVirtualCamera virtualCamera;
-    Transform cameraTransform;
+    CameraController cameraController;
 
     [SerializeField] private int health = 10;
-    [SerializeField] private float cameraZOffset = -5f;
 
     [HideInInspector] public bool IsShot = false;
 
@@ -33,16 +31,11 @@ public class Unit : MonoBehaviour
             {
                 GetComponents();
 
-                Vector3 positionToMove = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z + cameraZOffset);
+                cameraController.LookAt(transform);
 
-                float distance = Vector3.Distance(cameraTransform.transform.position, positionToMove);
+                cameraController.MoveCameraToActiveUnit(transform.position);
 
-                // Dynamic transition speed, so that it's shorter if the camera doesn't move far.
-                float transitionSpeed = Mathf.Clamp(distance / 5f, 0.1f, 2f);
-
-                cameraTransform.DOMove(positionToMove, transitionSpeed);
-
-                StartCoroutine(EnableActionAfterTransition(transitionSpeed));
+                StartCoroutine(EnableActionAfterTransition(cameraController.TransitionSpeed));
             }
             else
             {
@@ -75,7 +68,7 @@ public class Unit : MonoBehaviour
     {
         if (isFollowedByCamera)
         {
-            CameraFollow();
+            cameraController.CameraFollow(transform.position);
         }
     }
 
@@ -110,15 +103,9 @@ public class Unit : MonoBehaviour
         IsAbleToAct = true;
     }
 
-    private void CameraFollow()
-    {
-        virtualCamera.transform.position = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z + cameraZOffset);
-    }
-
     private void GetComponents()
     {
         turnManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();
-        virtualCamera = GameObject.Find("Camera").GetComponent<CinemachineVirtualCamera>();
-        cameraTransform = GameObject.Find("Camera").GetComponent<Transform>();
+        cameraController = GameObject.Find("Camera").GetComponent<CameraController>();
     }
 }

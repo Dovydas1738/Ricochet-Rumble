@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     PlayerInput playerInput;
     TrajectoryVisualizer trajectoryVisualizer;
     SphereCollider sphereCollider;
+    CameraController cameraController;
 
     public float MaxForce = 100f;
     [SerializeField] float maxDragDistance = 300f;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         trajectoryVisualizer = GetComponent<TrajectoryVisualizer>();
         sphereCollider = GetComponent<SphereCollider>();
+        cameraController = GameObject.Find("Camera").GetComponent<CameraController>();
     }
 
     private void Update()
@@ -73,6 +75,12 @@ public class PlayerController : MonoBehaviour
             Debug.Log(shotForce);
 
             trajectoryVisualizer.ShowTrajectory(player.transform.position, player.transform.forward, shotForce, sphereCollider.radius);
+        }
+
+        // Rotate player's view while RMB is pressed.
+        if(Input.GetMouseButton(1) && player.IsAbleToAct)
+        {
+            cameraController.RotateCamera(player.transform);
         }
 
         // When player stops moving after the shot, end turn.
