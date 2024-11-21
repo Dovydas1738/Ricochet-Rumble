@@ -19,11 +19,6 @@ public class TurnManager : MonoBehaviour
         units.Add(player.GetComponent<Unit>());
     }
 
-    private void Start()
-    {
-        StartTurn();
-    }
-
     public void StartTurn()
     {
         units[index].TurnToPlay = true;

@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     Player player;
     PlayerInput playerInput;
+    TrajectoryVisualizer trajectoryVisualizer;
+    SphereCollider sphereCollider;
 
     public float MaxForce = 100f;
     [SerializeField] float maxDragDistance = 300f;
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         player = GetComponent<Player>();
         playerInput = GetComponent<PlayerInput>();
+        trajectoryVisualizer = GetComponent<TrajectoryVisualizer>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void Update()
@@ -67,6 +71,8 @@ public class PlayerController : MonoBehaviour
             shotForce = Mathf.Lerp(minForce, MaxForce, normalizedDrag);
 
             Debug.Log(shotForce);
+
+            trajectoryVisualizer.ShowTrajectory(player.transform.position, player.transform.forward, shotForce, sphereCollider.radius);
         }
 
         // When player stops moving after the shot, end turn.

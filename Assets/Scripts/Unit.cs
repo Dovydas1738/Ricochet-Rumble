@@ -11,6 +11,7 @@ public class Unit : MonoBehaviour
     Transform cameraTransform;
 
     [SerializeField] private int health = 10;
+    [SerializeField] private float cameraZOffset = -5f;
 
     [HideInInspector] public bool IsShot = false;
 
@@ -32,7 +33,7 @@ public class Unit : MonoBehaviour
             {
                 GetComponents();
 
-                Vector3 positionToMove = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z);
+                Vector3 positionToMove = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z + cameraZOffset);
 
                 float distance = Vector3.Distance(cameraTransform.transform.position, positionToMove);
 
@@ -111,7 +112,7 @@ public class Unit : MonoBehaviour
 
     private void CameraFollow()
     {
-        virtualCamera.transform.position = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z);
+        virtualCamera.transform.position = new Vector3(transform.position.x, cameraTransform.transform.position.y, transform.position.z + cameraZOffset);
     }
 
     private void GetComponents()
