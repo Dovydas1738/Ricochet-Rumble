@@ -29,7 +29,7 @@ public class Unit : MonoBehaviour
             {
                 GetComponents();
 
-                cameraController.MoveCameraToPosition(transform);
+                cameraController.EnableCamera(transform);
 
                 // 1.2f is cinemachine brain easing time.
                 StartCoroutine(EnableActionAfterTransition(1.2f));

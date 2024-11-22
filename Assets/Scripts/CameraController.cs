@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
 
     [SerializeField] private float rotationSpeed = 1f;
 
-    public void MoveCameraToPosition(Transform unitTransform)
+    public void EnableCamera(Transform unitTransform)
     {
         if(unitTransform.gameObject.GetComponent<Player>() != null)
         {
