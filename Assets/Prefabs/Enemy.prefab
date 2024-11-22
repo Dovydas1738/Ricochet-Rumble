@@ -48,8 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnManager: {fileID: 0}
-  health: 10
-  cameraZOffset: -5
+  health: 1000
   IsShot: 0
   shotForce: 100
 --- !u!135 &8340971532353467421

@@ -13,8 +13,6 @@ public class Unit : MonoBehaviour
 
     [HideInInspector] public bool IsShot = false;
 
-    private bool isFollowedByCamera = false;
-
     protected bool _turnToPlay = false;
     [HideInInspector] public bool TurnToPlay
     {
@@ -31,15 +29,10 @@ public class Unit : MonoBehaviour
             {
                 GetComponents();
 
-                cameraController.LookAt(transform);
+                cameraController.MoveCameraToPosition(transform);
 
-                cameraController.MoveCameraToActiveUnit(transform.position);
-
-                StartCoroutine(EnableActionAfterTransition(cameraController.TransitionSpeed));
-            }
-            else
-            {
-                isFollowedByCamera = false;
+                // 1.2f is cinemachine brain easing time.
+                StartCoroutine(EnableActionAfterTransition(1.2f));
             }
         }
     }
@@ -54,23 +47,10 @@ public class Unit : MonoBehaviour
         set
         {
             _isAbleToAct = value;
-
-            if (value)
-            {
-                isFollowedByCamera = true;
-            }
         }
     }
 
     // TODO add a death VFX and SFX fields to play on death
-
-    private void LateUpdate()
-    {
-        if (isFollowedByCamera)
-        {
-            cameraController.CameraFollow(transform.position);
-        }
-    }
 
     public virtual void TakeDamage(int amount)
     {

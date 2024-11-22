@@ -6,34 +6,26 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    CinemachineVirtualCamera virtualCamera;
-    Transform cameraTransform;
+    [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [SerializeField] CinemachineVirtualCamera overviewCamera;
+    [SerializeField] Transform cameraTransform;
 
-    [SerializeField] private float cameraZOffset = -5f;
     [SerializeField] private float rotationSpeed = 1f;
 
-    [HideInInspector] public float TransitionSpeed;
-
-    private void Start()
+    public void MoveCameraToPosition(Transform unitTransform)
     {
-        GetComponents();
-    }
+        if(unitTransform.gameObject.GetComponent<Player>() != null)
+        {
+            overviewCamera.enabled = false;
+            virtualCamera.enabled = true;
+        }
+        else
+        {
+            virtualCamera.enabled = false;
+            overviewCamera.enabled = true;
 
-    public void MoveCameraToActiveUnit(Vector3 unitPosition)
-    {
-        Vector3 positionToMove = new Vector3(unitPosition.x, cameraTransform.position.y, unitPosition.z + cameraZOffset);
-
-        float distance = Vector3.Distance(cameraTransform.position, positionToMove);
-
-        // Dynamic transition speed, so that it's shorter if the camera doesn't move far.
-        TransitionSpeed = Mathf.Clamp(distance / 5f, 0.1f, 2f);
-
-        cameraTransform.DOMove(positionToMove, TransitionSpeed);
-    }
-
-    public void CameraFollow(Vector3 unitPosition)
-    {
-        transform.position = new Vector3(unitPosition.x, cameraTransform.position.y, unitPosition.z + cameraZOffset);
+            overviewCamera.LookAt = unitTransform;
+        }
     }
 
     public void RotateCamera(Transform anchorObject)
@@ -42,17 +34,24 @@ public class CameraController : MonoBehaviour
 
         float mouseX = Input.GetAxis("Mouse X");
 
-        virtualCamera.transform.RotateAround(anchorObject.transform.position, Vector3.up, mouseX * rotationSpeed);
-    }
-
-    public void LookAt(Transform unit)
-    {
-        virtualCamera.LookAt = unit;
+        virtualCamera.transform.RotateAround(anchorObject.position, Vector3.up, mouseX * rotationSpeed);
     }
 
     private void GetComponents()
     {
-        virtualCamera = GetComponent<CinemachineVirtualCamera>();
+        virtualCamera = GameObject.Find("YourVirtualCameraName").GetComponent<CinemachineVirtualCamera>();
         cameraTransform = GetComponent<Transform>();
+    }
+
+    private IEnumerator SetCameraFollowAfterTransition(Transform unit, float transitionSpeed)
+    {
+        if(virtualCamera.Follow != null)
+        {
+            virtualCamera.Follow = null;
+        }
+
+        yield return new WaitForSeconds(transitionSpeed);
+
+        virtualCamera.Follow = unit;
     }
 }
